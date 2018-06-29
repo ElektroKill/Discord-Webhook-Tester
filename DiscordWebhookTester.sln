@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordWebhookTester", "DiscordWebhookTester\DiscordWebhookTester.csproj", "{C6309331-C558-4805-93D2-34339E3C702D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6309331-C558-4805-93D2-34339E3C702D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6309331-C558-4805-93D2-34339E3C702D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6309331-C558-4805-93D2-34339E3C702D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6309331-C558-4805-93D2-34339E3C702D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E4CA8F4-349A-4FB3-BD93-470AB02076E5}
+	EndGlobalSection
+EndGlobal
