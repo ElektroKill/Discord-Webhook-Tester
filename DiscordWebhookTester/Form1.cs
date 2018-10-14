@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Specialized;
 using System.Net;
@@ -20,40 +14,50 @@ namespace DiscordWebhookTester
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            using (DiscordWebhook Webhook = new DiscordWebhook())
+            progressBar1.Maximum = Convert.ToInt32(numericUpDown1.Value);
+            progressBar1.Value = 0;
+            for (int i = 0; i <= numericUpDown1.Value - 1; i++)
             {
-                Webhook.ProfilePicture = textBox3.Text;
-                Webhook.UserName = textBox2.Text;
-                Webhook.WebHook = textBox1.Text;
-                Webhook.Send(richTextBox1.Text);
+                DiscordWebhook dw = new DiscordWebhook(textBox1.Text);
+                dw.TTS = checkBox1.Checked;
+                dw.UserName = textBox2.Text;
+                dw.Message = richTextBox1.Text;
+                dw.AvatarURL = textBox3.Text;
+                dw.Send();
+                progressBar1.Value++;
+                Thread.Sleep(250);
             }
         }
     }
-    public class DiscordWebhook : IDisposable
+    public class DiscordWebhook
     {
-        private static NameValueCollection Values = new NameValueCollection();
-        private readonly WebClient webClient1;
-        public string WebHook { get; set; }
+        private static NameValueCollection WebhookValues = new NameValueCollection();
+        private WebClient discordClient;
+        private string WebhookAdress { get; set; }
+        public bool TTS { get; set; }
         public string UserName { get; set; }
-        public string ProfilePicture { get; set; }
-        public DiscordWebhook()
+        public string Message { get; set; }
+        public string AvatarURL { get; set; }     
+        public DiscordWebhook(string WebhookURL)
         {
-            webClient1 = new WebClient();
+            discordClient = new WebClient();
+            WebhookAdress = WebhookURL;
         }
-        public void Send(string msg)
+        public void Send()
         {
             try
             {
-                Values.Set("username", UserName);
-                Values.Set("avatar_url", ProfilePicture);
-                Values.Set("content", msg);
-                webClient1.UploadValues(WebHook, Values);
+                WebhookValues.Set("tts", TTS.ToString());
+                WebhookValues.Set("username", UserName);
+                WebhookValues.Set("avatar_url", AvatarURL);
+                WebhookValues.Set("content", Message);
+                discordClient.UploadValues(WebhookAdress, WebhookValues);
+                discordClient.Dispose();
             }
-            catch { }
-        }
-        public void Dispose()
-        {
-            webClient1.Dispose();
+            catch (Exception e)
+            {
+                Console.WriteLine("Error :  " + e.ToString());
+            }
         }
     }
 }
